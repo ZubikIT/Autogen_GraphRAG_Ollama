@@ -26,9 +26,9 @@ Follow these steps to set up and run AutoGen GraphRAG Local with Ollama and Chai
     Visit [Ollama's website](https://ollama.com/) for installation files.
 
     ```bash
-    ollama pull mistral
+    ollama pull hf.co/IlyaGusev/saiga_nemo_12b_gguf:Q4_K_M
     ollama pull nomic-embed-text
-    ollama pull llama3
+    ollama run llama3.2-vision
     ollama serve
     ```
 
@@ -36,14 +36,14 @@ Follow these steps to set up and run AutoGen GraphRAG Local with Ollama and Chai
     ```bash
    conda create -n RAG_agents python=3.12
    conda activate RAG_agents
-   git clone https://github.com/karthik-codex/autogen_graphRAG.git
+   git clone https://github.com/ZubikIT/Autogen_GraphRAG_Ollama
    cd autogen_graphRAG
    pip install -r requirements.txt
     ```    
 3. **Initiate GraphRAG root folder:**
     ```bash
     mkdir -p ./input
-    python -m graphrag.index --init  --root .
+    graphrag init --root . 
     mv ./utils/settings.yaml ./
     ```      
 4. **Replace 'embedding.py' and 'openai_embeddings_llm.py' in the GraphRAG package folder using files from Utils folder:**

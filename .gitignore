@@ -5,3 +5,4 @@ output
 settings.yaml
 .env
 prompts
+.idea
