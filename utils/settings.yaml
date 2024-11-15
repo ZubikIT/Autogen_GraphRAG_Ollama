@@ -6,7 +6,7 @@ llm:
   type: openai_chat # or azure_openai_chat
   model: mistral
   model_supports_json: true # recommended if this is available for your model.
-  # max_tokens: 4000
+  max_tokens: 2000
   # request_timeout: 180.0
   api_base: http://localhost:11434/v1
   # api_version: 2024-02-15-preview
@@ -14,10 +14,10 @@ llm:
   # deployment_name: <azure_model_deployment_name>
   # tokens_per_minute: 150_000 # set a leaky bucket throttle
   # requests_per_minute: 10_000 # set a leaky bucket throttle
-  # max_retries: 10
+  max_retries: 1
   # max_retry_wait: 10.0
   # sleep_on_rate_limit_recommendation: true # whether to sleep when azure suggests wait-times
-  # concurrent_requests: 25 # the number of parallel inflight requests that may be made
+  concurrent_requests: 1 # the number of parallel inflight requests that may be made
 
 parallelization:
   stagger: 0.3
@@ -31,34 +31,34 @@ embeddings:
   llm:
     api_key: ${GRAPHRAG_API_KEY}
     type: openai_embedding # or azure_openai_embedding
-    model: nomic_embed_text #text-embedding-3-large  #mxbai-embed-large #
+    model: nomic-embed-text #text-embedding-3-large  #mxbai-embed-large #
     api_base: http://localhost:11434/api
     # api_version: 2024-02-15-preview
     # organization: <organization_id>
     # deployment_name: <azure_model_deployment_name>
     # tokens_per_minute: 150_000 # set a leaky bucket throttle
     # requests_per_minute: 10_000 # set a leaky bucket throttle
-    # max_retries: 10
+    max_retries: 1
     # max_retry_wait: 10.0
     # sleep_on_rate_limit_recommendation: true # whether to sleep when azure suggests wait-times
-    concurrent_requests: 25 # the number of parallel inflight requests that may be made
-    # batch_size: 16 # the number of documents to send in a single request
-    # batch_max_tokens: 8191 # the maximum number of tokens to send in a single request
+    concurrent_requests: 1 # the number of parallel inflight requests that may be made
+    batch_size: 1 # the number of documents to send in a single request
+    batch_max_tokens: 8191 # the maximum number of tokens to send in a single request
     # target: required # or optional
-  
+
 
 
 chunks:
   size: 300
   overlap: 100
   group_by_columns: [id] # by default, we don't allow chunks to cross documents
-    
+
 input:
   type: file # or blob
   file_type: text # or csv
-  base_dir: "input/markdown"
+  base_dir: "input"
   file_encoding: utf-8
-  file_pattern: ".*\\.md$"
+  file_pattern: ".*\\.txt$"
 
 cache:
   type: file # or blob
@@ -108,7 +108,7 @@ community_report:
   ## async_mode: override the global async_mode settings for this task
   prompt: "prompts/community_report.txt"
   max_length: 2000
-  max_input_length: 8000
+  max_input_length: 7000
 
 cluster_graph:
   max_cluster_size: 10
@@ -125,9 +125,9 @@ umap:
   enabled: false # if true, will generate UMAP embeddings for nodes
 
 snapshots:
-  graphml: True
+  graphml: false
   raw_entities: false
-  top_level_nodes: True
+  top_level_nodes: false
 
 local_search:
   # text_unit_prop: 0.5
